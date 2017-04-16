@@ -70,7 +70,7 @@ async def execute(sql, args, autocommit=True):
         return affected
 
 
-class Field(object):
+class Field(Model):
     
     def __init__(self, name, column_type, primary_key, default):
         self.name = name

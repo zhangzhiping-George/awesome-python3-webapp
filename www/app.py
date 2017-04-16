@@ -1,4 +1,4 @@
-__author__ = 'George'
+__author__ = 'zhangzhiping-George'
 '''
 async web application
 '''

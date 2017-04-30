@@ -1,0 +1,36 @@
+{% extends '__base__.html' %}
+
+{% block title %}日志{% endblock %}
+
+{% block beforehead %}
+
+<script>
+</script>
+
+{% endblock %}
+
+{% block content %}
+    <div class="uk-width-medium-3-4">
+    {% for blog in blogs %}
+        <article class="uk-article">
+            <h2><a href="/blog/{{ blog.id }}">{{ blog.name }}</a></h2>
+            <p class="uk-article-meta">发表于{{ blog.created_at|datetime }}</p>
+            <p>{{ blog.summary }}</p>
+            <p><a href="/blog/{{ blog.id }}">继续阅读 <i class="uk-icon-angle-double-right"></i></a></p>
+        </article>
+        <hr class="uk-article-divider">
+    {% endfor %}
+    </div>
+
+    <div class="uk-width-medium-1-4">
+        <div class="uk-panel uk-panel-header">
+            <h3 class="uk-panel-title">友情链接</h3>
+            <ul class="uk-list uk-list-line">
+                <li><i class="uk-icon-thumbs-o-up"></i> <a target="_blank" href="http://cn163.net/archives/23645/">Prison Break-The 5th Season</a></li>
+                <li><i class="uk-icon-thumbs-o-up"></i> <a target="_blank" href="http://weibo.com/tv/v/520cddf1f6e1a2177e1220185e9975c2?fid=1034:520cddf1f6e1a2177e1220185e9975c2">综合格斗视频教程</a></li>
+                <li><i class="uk-icon-thumbs-o-up"></i> <a target="_blank" href="http://www.iqiyi.com/v_19rrb51x7s.html">奇葩说</a></li>
+                <li><i class="uk-icon-thumbs-o-up"></i> <a target="_blank" href="https://github.com/zhangzhiping-George">Welcome - 我的在线Git仓库</a></li>
+                </ul>
+            </div>
+        </div>
+{% endblock %}

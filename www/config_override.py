@@ -1,11 +1,14 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 '''
 Override configurations.
 '''
 
-__author__ = 'George Zhang'
+__author__ = 'Michael Liao'
 
 configs = {
-    'db':{
+    'db': {
         'host': '127.0.0.1'
     }
 }

@@ -76,8 +76,8 @@ class Model:
 	__pool = yield from aiomysql.create_pool(host='127.0.0.1', port=3306,
 		                        	user='root', password='',
 		                            db='mysql', loop=loop)
-    # ?__pool.close()
-    # ?yield from __pool.wait_closed()
+    # __pool.close()
+    # yield from __pool.wait_closed()
 
 	def __init__(self, des=None):
 	    with (yield from __pool) as conn:
@@ -86,7 +86,7 @@ class Model:
 	def execute(self, tbl, *args, **kwargs):
 		pass
 
-	def save(): #? 
+	def save(): #
 		pass
 
 	

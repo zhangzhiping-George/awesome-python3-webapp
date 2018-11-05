@@ -69,7 +69,8 @@ class Article(models.Model):
 class Model:
 	'''
 	define model module
-	why to use metaclass? 
+	*** why to use metaclass***
+	that's the reason why metaclass is so cool! 
 	'''
 	# connections pool:
 	__pool = yield from aiomysql.create_pool(host='127.0.0.1', port=3306,

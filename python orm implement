@@ -1,0 +1,111 @@
+'''
+# aiomysql.connect(host='192.168.137.232', port=3306, user='root', password='123456', db='mysql')
+@asyncio.coroutine
+def test_example():
+    conn = yield from aiomysql.connect(host='127.0.0.1', port=3306,
+                                       user='root', password='',
+                                       db='mysql', loop=loop)
+
+    # create default cursor
+    cursor = yield from conn.cursor()
+
+    # execute sql query
+    yield from cursor.execute("SELECT Host, User FROM user")
+
+    # fetch all results
+    r = yield from cursor.fetchall()
+
+    # detach cursor from connection
+    yield from cursor.close()
+
+    # close connection
+	conn.close()
+'''
+
+1. mysql engine connections pool
+2. aiomysql.connect --> cursor.execute(SQL expression)
+3. model: data model module implemented
+	Data Type:
+		IntegerField
+		CharField
+		FloatField
+		TextField
+		...
+	Data Manipulation Method:
+		execute: select, insert, update, delete
+		con.cursor.execute(SQL EXPRESSION)
+		RAW SQL:	
+			### orm does not implement 'create database ...'
+			### create database if not exists dbname charset utf-8;
+			use dbname --> to create connections 
+			create table if not exists tbl
+			(
+				varchar name 255,
+				int empnum 50,
+				varchar department 255,
+				float salary (5, 2)
+			) engine=innodb;
+
+		user.findmany(tbl, field, limit_counts=1) --> select ? from ? 
+		user.save() --> insert into --> insert into tbl values(f1, f2, f3, ...)
+		user.remove(tbl, filter) --> delete from tbl where Field = f1
+		user.update(tle, f1,  f2) --> update table F1 = f1 where F2=f2
+
+# Here is a user model application demo
+'''
+class Article(models.Model):
+	title = models.CharField(max_length=50, des='Article Title')
+	overview = models.CharField(max_length=300, des='Summary of Article')
+	content = models.TextField(des='Article Content')
+	date = models.DateTimeField(auto_add_now=True, des='Publish Date')
+
+	def __str__(self):
+		return self.title
+'''
+
+
+
+
+class Model:
+	'''
+	define model module
+	why to use metaclass? 
+	'''
+	# connections pool:
+	__pool = yield from aiomysql.create_pool(host='127.0.0.1', port=3306,
+		                        	user='root', password='',
+		                            db='mysql', loop=loop)
+    # ?__pool.close()
+    # ?yield from __pool.wait_closed()
+
+	def __init__(self, des=None):
+	    with (yield from __pool) as conn:
+		    cursor = yield from conn.cursor()
+
+	def execute(self, tbl, *args, **kwargs):
+		pass
+
+	def save(): #? 
+		pass
+
+	
+class IntegerField(Model):
+	def __init__(self, data_type, length=10, des=None):
+		# super().__init__() # how to use super(). ...? 
+		self.data_type = 'INT'
+		self.length = length
+		self.des = 'product number'
+
+class FloatField(Model):
+	def __init__(self, length, descimal, des=None):
+		self.length = length
+		self .descimal = descimal
+
+class CharField(Model):
+	pass
+
+class TextField(Model):
+	pass
+
+class DateTimeField(Model):
+	pass
